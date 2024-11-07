@@ -12,6 +12,8 @@ interface HomePageData {
   recipes: Recipe[];
 }
 
+export const dynamic = 'force-dynamic';
+
 async function getData(category?: string): Promise<HomePageData> {
   const categories = await getCategories();
   const meals = category
@@ -20,7 +22,7 @@ async function getData(category?: string): Promise<HomePageData> {
 
   return {
     categories: categories,
-    recipes: meals.map((meal) => ({ ...meal, category: category ?? 'Beef' }))
+    recipes: meals.map((meal) => ({ ...meal, category }))
   };
 }
 
