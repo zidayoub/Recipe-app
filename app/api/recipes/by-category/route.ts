@@ -3,7 +3,6 @@ import { z } from 'zod';
 
 const API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 
-// Input validation schema
 const querySchema = z.object({
   category: z.string().min(1).max(50),
 });
@@ -13,7 +12,6 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
 
-    // Validate input
     const validated = querySchema.parse({ category });
 
     const response = await fetch(
@@ -26,7 +24,6 @@ export async function GET(request: Request) {
 
     const data = await response.json();
 
-    // Validate response data
     const mealsSchema = z.object({
       meals: z.array(
         z.object({

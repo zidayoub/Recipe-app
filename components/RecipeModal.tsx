@@ -15,7 +15,6 @@ export function RecipeModal({ recipe, isOpen, onClose }: RecipeModalProps) {
 
     useEffect(() => {
         if (recipe) {
-            // Check if recipe is in favorites when recipe changes
             const storedFavorites = localStorage.getItem('favorites');
             if (storedFavorites) {
                 const favorites = JSON.parse(storedFavorites);
@@ -31,10 +30,8 @@ export function RecipeModal({ recipe, isOpen, onClose }: RecipeModalProps) {
         let favorites: Recipe[] = storedFavorites ? JSON.parse(storedFavorites) : [];
 
         if (isLiked) {
-            // Remove from favorites
             favorites = favorites.filter((fav) => fav.id !== recipe.id);
         } else {
-            // Add to favorites
             favorites.push(recipe);
         }
 
@@ -56,30 +53,26 @@ export function RecipeModal({ recipe, isOpen, onClose }: RecipeModalProps) {
                                 fill
                                 className="object-cover"
                             />
+                            <button
+                                onClick={toggleFavorite}
+                                className="absolute top-2 right-2 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
+                                aria-label={isLiked ? "Unlike recipe" : "Like recipe"}
+                            >
+                                <Heart
+                                    className={`w-6 h-6 transition-colors ${isLiked
+                                        ? "fill-red-500 stroke-red-500"
+                                        : "stroke-gray-600"
+                                        }`}
+                                />
+                            </button>
                         </div>
                     </div>
 
-                    <div className="flex-1 flex sm:block">
-                        <div className="flex-1 text-left">
-                            <div className="flex items-start justify-between mb-3">
-                                <DialogTitle className="text-xl sm:text-2xl font-bold">
-                                    {recipe.title}
-                                </DialogTitle>
-                                <div className="hidden sm:block">
-                                    <button
-                                        onClick={toggleFavorite}
-                                        className="w-10 h-10 flex items-center justify-center rounded-full transition-all hover:scale-105 active:scale-95"
-                                        aria-label={isLiked ? "Unlike recipe" : "Like recipe"}
-                                    >
-                                        <Heart
-                                            className={`w-6 h-6 transition-colors ${isLiked
-                                                ? "fill-red-500 stroke-red-500"
-                                                : "stroke-gray-600"
-                                                }`}
-                                        />
-                                    </button>
-                                </div>
-                            </div>
+                    <div className="flex-1">
+                        <div className="text-left">
+                            <DialogTitle className="text-xl sm:text-2xl font-bold mb-3">
+                                {recipe.title}
+                            </DialogTitle>
 
                             <div className="space-y-2">
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -104,21 +97,6 @@ export function RecipeModal({ recipe, isOpen, onClose }: RecipeModalProps) {
                                     </a>
                                 )}
                             </div>
-                        </div>
-
-                        <div className="ml-4 sm:hidden flex items-center pr-2">
-                            <button
-                                onClick={toggleFavorite}
-                                className="w-10 flex items-center justify-center rounded-full transition-all hover:scale-105 active:scale-95"
-                                aria-label={isLiked ? "Unlike recipe" : "Like recipe"}
-                            >
-                                <Heart
-                                    className={`w-full h-full transition-colors ${isLiked
-                                        ? "fill-red-500 stroke-red-500"
-                                        : "stroke-gray-600"
-                                        }`}
-                                />
-                            </button>
                         </div>
                     </div>
                 </div>

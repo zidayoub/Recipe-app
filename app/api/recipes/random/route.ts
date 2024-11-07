@@ -13,7 +13,6 @@ export async function GET() {
 
     const data = await response.json();
 
-    // Validate response data
     const mealsSchema = z.object({
       meals: z.array(
         z.object({

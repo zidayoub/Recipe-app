@@ -10,7 +10,6 @@ export default function Favorites() {
     const [favorites, setFavorites] = useState<Recipe[]>([]);
 
     useEffect(() => {
-        // Get favorites from localStorage
         const storedFavorites = localStorage.getItem('favorites');
         if (storedFavorites) {
             setFavorites(JSON.parse(storedFavorites));

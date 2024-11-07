@@ -11,13 +11,10 @@ export default function LoginPage() {
         const formData = new FormData(event.currentTarget)
         const password = formData.get("password")
 
-        // Simulate form validation
         if (!password) {
             setError("Please enter a password")
             return
         }
-
-        // Add your authentication logic here
     }
 
     return (

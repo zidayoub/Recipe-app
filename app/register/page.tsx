@@ -17,7 +17,6 @@ export default function RegisterPage() {
             return
         }
 
-        // Add your registration logic here
     }
 
     return (

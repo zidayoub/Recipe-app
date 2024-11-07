@@ -12,7 +12,6 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
-        // Check if recipe is in favorites when component mounts
         const storedFavorites = localStorage.getItem('favorites');
         if (storedFavorites) {
             const favorites = JSON.parse(storedFavorites);
@@ -26,10 +25,8 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
         let favorites: Recipe[] = storedFavorites ? JSON.parse(storedFavorites) : [];
 
         if (isLiked) {
-            // Remove from favorites
             favorites = favorites.filter((fav) => fav.id !== recipe.id);
         } else {
-            // Add to favorites
             favorites.push(recipe);
         }
 
@@ -55,7 +52,7 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
                 <div className="flex items-center">
                     <span className="text-sm text-gray-500">{recipe.category}</span>
                     <button
-                        className="ml-2 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow-lg transition-all hover:scale-105 active:scale-95"
+                        className="ml-2 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
                         onClick={toggleFavorite}
                         aria-label={isLiked ? "Unlike recipe" : "Like recipe"}
                     >
