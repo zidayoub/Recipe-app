@@ -3,6 +3,7 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+
 interface RecipeCardProps {
     recipe: Recipe;
     onViewRecipe: (id: string) => void;
@@ -50,7 +51,9 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
             </div>
             <div className="mt-4">
                 <div className="flex items-center">
-                    <span className="text-sm text-gray-500">{recipe.strCategory}</span>
+                    <span className="text-sm text-gray-500">
+                        {recipe.category}
+                    </span>
                     <button
                         className="ml-2 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
                         onClick={toggleFavorite}

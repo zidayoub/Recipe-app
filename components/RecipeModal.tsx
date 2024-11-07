@@ -66,8 +66,9 @@ export function RecipeModal({ recipeId, isOpen, onClose }: RecipeModalProps) {
                                     <Image
                                         src={recipe.strMealThumb}
                                         alt={recipe.strMeal}
-                                        fill
-                                        className="object-cover"
+                                        width={100}
+                                        height={100}
+                                        className="object-cover w-full h-full"
                                     />
                                     <div className="absolute bottom-0 right-0 flex justify-center p-2 bg-gradient-to-t from-black/50 to-transparent">
                                         <button

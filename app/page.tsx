@@ -3,9 +3,14 @@
 import { RecipeCard } from "@/components/RecipeCard";
 import { RecipeModal } from "@/components/RecipeModal";
 import { getCategories, getMealsByCategory, getRandomMeals } from "@/lib/api";
-import { Category, HomePageData, Recipe } from "@/types";
+import { Category, Recipe } from "@/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+interface HomePageData {
+  categories: Category[];
+  recipes: Recipe[];
+}
 
 async function getData(category?: string): Promise<HomePageData> {
   const categories = await getCategories();
@@ -15,7 +20,7 @@ async function getData(category?: string): Promise<HomePageData> {
 
   return {
     categories: categories,
-    recipes: meals
+    recipes: meals.map((meal) => ({ ...meal, category: category ?? 'Beef' }))
   };
 }
 

@@ -8,7 +8,7 @@ export interface Recipe {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
-  strCategory: string;
+  category?: string;
 }
 
 export interface RecipeDetails {
@@ -29,9 +29,4 @@ export interface RecipeDetails {
   strImageSource: string | null;
   strCreativeCommonsConfirmed: string | null;
   dateModified: string | null;
-}
-
-export interface HomePageData {
-  categories: Category[];
-  recipes: Recipe[];
 }
