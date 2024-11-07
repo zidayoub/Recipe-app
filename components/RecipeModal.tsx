@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Recipe } from "@/types";
 import { Globe2, Heart, Tags, Video } from "lucide-react";
 import Image from "next/image";
@@ -46,7 +46,7 @@ export function RecipeModal({ recipe, isOpen, onClose }: RecipeModalProps) {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-w-5xl h-auto max-h-[90vh] overflow-y-auto p-4 sm:p-6">
+            <DialogContent className="max-w-5xl h-auto max-h-[90vh] overflow-y-auto p-4 sm:p-6" aria-describedby={undefined}>
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                     <div className="w-full sm:w-[40%]">
                         <div className="relative aspect-video sm:aspect-square rounded-lg overflow-hidden">
@@ -62,7 +62,9 @@ export function RecipeModal({ recipe, isOpen, onClose }: RecipeModalProps) {
                     <div className="flex-1 flex sm:block">
                         <div className="flex-1 text-left">
                             <div className="flex items-start justify-between mb-3">
-                                <h2 className="text-xl sm:text-2xl font-bold">{recipe.title}</h2>
+                                <DialogTitle className="text-xl sm:text-2xl font-bold">
+                                    {recipe.title}
+                                </DialogTitle>
                                 <div className="hidden sm:block">
                                     <button
                                         onClick={toggleFavorite}

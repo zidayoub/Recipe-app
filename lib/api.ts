@@ -1,23 +1,32 @@
 import { CategoryResponse, MealResponse } from '@/types';
 
-const API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
-
 export async function getCategories(): Promise<CategoryResponse[]> {
-  const response = await fetch(`${API_BASE_URL}/categories.php`);
+  const response = await fetch('/api/recipes/categories');
+  if (!response.ok) {
+    throw new Error('Failed to fetch categories');
+  }
   const data = await response.json();
-  return data.categories.slice(0, 5);
+  return data.categories;
 }
 
 export async function getMealsByCategory(
   category: string
 ): Promise<MealResponse[]> {
-  const response = await fetch(`${API_BASE_URL}/filter.php?c=${category}`);
+  const response = await fetch(
+    `/api/recipes/by-category?category=${encodeURIComponent(category)}`
+  );
+  if (!response.ok) {
+    throw new Error('Failed to fetch meals');
+  }
   const data = await response.json();
   return data.meals;
 }
 
 export async function getRandomMeals(): Promise<MealResponse[]> {
-  const response = await fetch(`${API_BASE_URL}/filter.php?c=Beef`);
+  const response = await fetch('/api/recipes/random');
+  if (!response.ok) {
+    throw new Error('Failed to fetch random meals');
+  }
   const data = await response.json();
-  return data.meals?.slice(0, 10) ?? [];
+  return data.meals;
 }

@@ -7,8 +7,6 @@ import { Category, HomePageData, Recipe } from "@/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export const dynamic = 'force-cache';
-
 async function getData(category?: string): Promise<HomePageData> {
   const categories = await getCategories();
   const meals = category
