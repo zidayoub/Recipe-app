@@ -39,7 +39,6 @@ interface HomeProps {
 export default function Home({ searchParams }: HomeProps) {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  console.log(recipes);
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {

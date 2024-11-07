@@ -49,6 +49,11 @@ export default function RootLayout({
         </header>
         <main className="lg:px-40">{children}</main>
       </body>
+      <footer className="text-center py-4">
+        <p className="text-sm text-gray-500">
+          &copy; {new Date().getFullYear()} CookBook. All rights reserved.
+        </p>
+      </footer>
     </html>
   )
 }

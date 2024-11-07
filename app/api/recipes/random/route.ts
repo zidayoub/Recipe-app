@@ -26,7 +26,7 @@ export async function GET() {
     const validatedData = mealsSchema.parse(data);
 
     return NextResponse.json({
-      meals: validatedData.meals.slice(0, 10),
+      meals: validatedData.meals,
     });
   } catch (error) {
     console.error('Error fetching random meals:', error);
