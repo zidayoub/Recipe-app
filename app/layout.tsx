@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen bg-[#FFF5F7]`}>
-        <header className="sticky top-0 z-50 w-full border-b bg-white">
+        <header className="sticky top-0 z-50 w-full border-b bg-white lg:px-40">
           <div className="container flex h-16 items-center px-4 justify-between">
             <Link href="/" className="flex items-center gap-2">
               <span className="text-2xl font-bold text-[#FF4E7C]">CookBook.</span>
@@ -47,7 +47,7 @@ export default function RootLayout({
             </Link>
           </div>
         </header>
-        <main>{children}</main>
+        <main className="lg:px-40">{children}</main>
       </body>
     </html>
   )
