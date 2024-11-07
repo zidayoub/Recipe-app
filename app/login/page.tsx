@@ -24,7 +24,7 @@ export default function LoginPage() {
         <div className="flex min-h-[calc(100vh-64px)] items-center justify-center">
             <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow">
                 <div className="mb-8 text-center">
-                    <span className="text-2xl font-bold text-[#FF4E7C]">cook</span>
+                    <span className="text-2xl font-bold text-[#FF4E7C]">CookBook.</span>
                 </div>
                 <h1 className="mb-6 text-2xl font-semibold">Login</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">

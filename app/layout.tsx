@@ -7,7 +7,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Cook - Recipe Explorer",
+  title: "CookBook - Recipe Explorer",
   description: "Explore and save your favorite recipes",
 }
 
@@ -22,20 +22,20 @@ export default function RootLayout({
         <header className="sticky top-0 z-50 w-full border-b bg-white">
           <div className="container flex h-16 items-center px-4 justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-[#FF4E7C]">cook</span>
+              <span className="text-2xl font-bold text-[#FF4E7C]">CookBook.</span>
             </Link>
             <nav className="flex items-center gap-6">
               <Link
                 href="/"
-                className="text-sm font-medium transition-colors hover:text-[#FF4E7C]"
+                className="text-sm font-medium transition-colors hover:text-[#FF4E7C] text-black"
               >
                 HOME
               </Link>
               <Link
-                href="/favourite"
-                className="text-sm font-medium transition-colors hover:text-[#FF4E7C]"
+                href="/favorites"
+                className="text-sm font-medium transition-colors hover:text-[#FF4E7C] text-black"
               >
-                FAVOURITE
+                FAVORITES
               </Link>
             </nav>
             <Link
