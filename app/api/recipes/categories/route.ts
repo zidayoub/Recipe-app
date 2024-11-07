@@ -16,6 +16,7 @@ export async function GET() {
     const categorySchema = z.object({
       categories: z.array(
         z.object({
+          idCategory: z.string(),
           strCategory: z.string(),
           strCategoryThumb: z.string().url(),
           strCategoryDescription: z.string(),

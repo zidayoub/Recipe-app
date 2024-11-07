@@ -1,39 +1,34 @@
-// API Response Types
-export interface CategoryResponse {
-  strCategory: string;
-  strCategoryThumb: string;
-  strCategoryDescription: string;
-}
-
-export interface MealResponse {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-  strArea: string;
-  strInstructions: string;
-  strTags: string;
-  strIngredients: string[];
-  strMeasure: string[];
-}
-
 // Application Types
 export interface Category {
-  id: string;
-  label: string;
+  idCategory: string;
+  strCategory: string;
 }
 
 export interface Recipe {
-  id: string;
-  title: string;
-  category: string;
-  area: string;
-  instructions: string;
-  image: string;
-  tags: string;
-  youtube?: string;
-  source?: string;
-  ingredients: string[];
-  measurements: string[];
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+  strCategory: string;
+}
+
+export interface RecipeDetails {
+  idMeal: string;
+  strMeal: string;
+  strDrinkAlternate: string | null;
+  strCategory: string;
+  strArea: string;
+  strInstructions: string;
+  strMealThumb: string;
+  strTags: string;
+  strYoutube: string;
+  ingredients: {
+    ingredient: string;
+    measure: string;
+  }[];
+  strSource: string | null;
+  strImageSource: string | null;
+  strCreativeCommonsConfirmed: string | null;
+  dateModified: string | null;
 }
 
 export interface HomePageData {

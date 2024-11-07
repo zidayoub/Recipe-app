@@ -28,7 +28,7 @@ export default function Favorites() {
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                     {favorites.map((recipe) => (
                         <RecipeCard
-                            key={recipe.id}
+                            key={recipe.idMeal}
                             recipe={recipe}
                             onViewRecipe={() => {
                                 setSelectedRecipe(recipe);
@@ -39,7 +39,7 @@ export default function Favorites() {
             )}
 
             <RecipeModal
-                recipe={selectedRecipe}
+                recipeId={selectedRecipe?.idMeal}
                 isOpen={!!selectedRecipe}
                 onClose={() => setSelectedRecipe(null)}
             />

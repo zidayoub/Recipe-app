@@ -15,9 +15,9 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
         const storedFavorites = localStorage.getItem('favorites');
         if (storedFavorites) {
             const favorites = JSON.parse(storedFavorites);
-            setIsLiked(favorites.some((fav: Recipe) => fav.id === recipe.id));
+            setIsLiked(favorites.some((fav: Recipe) => fav.idMeal === recipe.idMeal));
         }
-    }, [recipe.id]);
+    }, [recipe.idMeal]);
 
     const toggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -25,7 +25,7 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
         let favorites: Recipe[] = storedFavorites ? JSON.parse(storedFavorites) : [];
 
         if (isLiked) {
-            favorites = favorites.filter((fav) => fav.id !== recipe.id);
+            favorites = favorites.filter((fav) => fav.idMeal !== recipe.idMeal);
         } else {
             favorites.push(recipe);
         }
@@ -37,12 +37,12 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
     return (
         <div
             className="group relative cursor-pointer"
-            onClick={() => onViewRecipe(recipe.id)}
+            onClick={() => onViewRecipe(recipe.idMeal)}
         >
             <div className="aspect-square overflow-hidden rounded-[60px] bg-gray-100">
                 <Image
-                    src={recipe.image}
-                    alt={recipe.title}
+                    src={recipe.strMealThumb}
+                    alt={recipe.strMeal}
                     width={300}
                     height={300}
                     className="h-full w-full object-cover transition-transform group-hover:scale-105"
@@ -50,7 +50,7 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
             </div>
             <div className="mt-4">
                 <div className="flex items-center">
-                    <span className="text-sm text-gray-500">{recipe.category}</span>
+                    <span className="text-sm text-gray-500">{recipe.strCategory}</span>
                     <button
                         className="ml-2 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
                         onClick={toggleFavorite}
@@ -65,7 +65,7 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
                         <span className="sr-only">Add to favorites</span>
                     </button>
                 </div>
-                <h3 className="font-medium">{recipe.title}</h3>
+                <h3 className="font-medium">{recipe.strMeal}</h3>
             </div>
         </div>
     );

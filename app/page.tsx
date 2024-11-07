@@ -14,21 +14,8 @@ async function getData(category?: string): Promise<HomePageData> {
     : await getRandomMeals();
 
   return {
-    categories: categories.map((cat) => ({
-      id: cat.strCategory.toLowerCase(),
-      label: cat.strCategory,
-    })),
-    recipes: meals.map((meal) => ({
-      id: meal.idMeal,
-      title: meal.strMeal,
-      category: category || "Beef",
-      image: meal.strMealThumb,
-      area: meal.strArea,
-      instructions: meal.strInstructions,
-      tags: meal.strTags,
-      ingredients: meal.strIngredients,
-      measurements: meal.strMeasure,
-    }))
+    categories: categories,
+    recipes: meals
   };
 }
 
@@ -55,23 +42,23 @@ export default function Home({ searchParams }: HomeProps) {
       <div className="flex gap-2 md:gap-4 overflow-x-auto pb-4 scrollbar-none -mx-4 px-4 md:mx-0 items-center">
         {categories.map((category) => (
           <Link
-            key={category.id}
-            href={`/?category=${category.label}`}
+            key={category.idCategory}
+            href={`/?category=${category.strCategory}`}
             className={`
               inline-flex shrink-0 items-center justify-center rounded-full border border-primary 
               px-3 md:px-4 py-1.5 md:py-2 text-sm font-medium transition-colors hover:bg-primary hover:text-primary-foreground
-              ${searchParams.category === category.label ? 'bg-primary text-primary-foreground' : ''}
-              ${!searchParams.category && category.label === categories[0].label ? 'bg-primary text-primary-foreground' : ''}
+              ${searchParams.category === category.strCategory ? 'bg-primary text-primary-foreground' : ''}
+              ${!searchParams.category && category.strCategory === categories[0].strCategory ? 'bg-primary text-primary-foreground' : ''}
             `}
           >
-            {category.label}
+            {category.strCategory}
           </Link>
         ))}
       </div>
       <div className="grid grid-cols-1 gap-10 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {recipes.map((recipe) => (
           <RecipeCard
-            key={recipe.id}
+            key={recipe.idMeal}
             recipe={recipe}
             onViewRecipe={() => {
               setSelectedRecipe(recipe);
@@ -79,9 +66,8 @@ export default function Home({ searchParams }: HomeProps) {
           />
         ))}
       </div>
-
       <RecipeModal
-        recipe={selectedRecipe}
+        recipeId={selectedRecipe?.idMeal}
         isOpen={!!selectedRecipe}
         onClose={() => setSelectedRecipe(null)}
       />
