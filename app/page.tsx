@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Loading from "./loading";
 
+export const dynamic = 'force-dynamic';
+
 interface HomeProps {
   searchParams: { category?: string };
 }
