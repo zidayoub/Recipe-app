@@ -5,18 +5,15 @@ import { RecipeModal } from "@/components/RecipeModal";
 import { getCategories, getMealsByCategory, getRandomMeals } from "@/lib/api";
 import { Category, Recipe } from "@/types";
 import { useEffect, useState } from "react";
-import Loading from "./loading";
 
 export default function Home({ searchParams }: { searchParams: { category?: string } }) {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
         const categories = await getCategories();
         const meals = searchParams.category
           ? await getMealsByCategory(searchParams.category)
@@ -29,17 +26,11 @@ export default function Home({ searchParams }: { searchParams: { category?: stri
         })));
       } catch (error) {
         console.error('Error fetching data:', error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [searchParams.category]);
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <div className="container px-4 py-6">
