@@ -4,6 +4,7 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { RecipeModal } from "@/components/RecipeModal";
 import { getCategories, getMealsByCategory, getRandomMeals } from "@/lib/api";
 import { Category, Recipe } from "@/types";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Loading from "./loading";
 
@@ -49,7 +50,7 @@ export default function Home({ searchParams }: HomeProps) {
     <div className="container px-4 py-6">
       <div className="flex gap-2 md:gap-4 overflow-x-auto pb-4 scrollbar-none -mx-4 px-4 md:mx-0 items-center">
         {categories.map((category) => (
-          <a
+          <Link
             key={category.idCategory}
             href={`/?category=${category.strCategory}`}
             className={`
@@ -60,7 +61,7 @@ export default function Home({ searchParams }: HomeProps) {
             `}
           >
             {category.strCategory}
-          </a>
+          </Link>
         ))}
       </div>
       <div className="grid grid-cols-1 gap-10 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
