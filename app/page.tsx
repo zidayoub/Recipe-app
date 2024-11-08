@@ -4,17 +4,10 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { RecipeModal } from "@/components/RecipeModal";
 import { getCategories, getMealsByCategory, getRandomMeals } from "@/lib/api";
 import { Category, Recipe } from "@/types";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import Loading from "./loading";
 
-export const dynamic = 'force-dynamic';
-
-interface HomeProps {
-  searchParams: { category?: string };
-}
-
-export default function Home({ searchParams }: HomeProps) {
+export default function Home({ searchParams }: { searchParams: { category?: string } }) {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -52,7 +45,7 @@ export default function Home({ searchParams }: HomeProps) {
     <div className="container px-4 py-6">
       <div className="flex gap-2 md:gap-4 overflow-x-auto pb-4 scrollbar-none -mx-4 px-4 md:mx-0 items-center">
         {categories.map((category) => (
-          <Link
+          <a
             key={category.idCategory}
             href={`/?category=${category.strCategory}`}
             className={`
@@ -63,7 +56,7 @@ export default function Home({ searchParams }: HomeProps) {
             `}
           >
             {category.strCategory}
-          </Link>
+          </a>
         ))}
       </div>
       <div className="grid grid-cols-1 gap-10 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
