@@ -4,51 +4,59 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { RecipeModal } from "@/components/RecipeModal";
 import { getCategories, getMealsByCategory, getRandomMeals } from "@/lib/api";
 import { Category, Recipe } from "@/types";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Loading from "./loading";
 
-interface HomePageData {
-  categories: Category[];
-  recipes: Recipe[];
+// interface HomePageData {
+//   categories: Category[];
+//   recipes: Recipe[];
+// }
+
+interface HomeProps {
+  searchParams: { category?: string };
 }
 
 export const dynamic = 'force-dynamic';
-
-async function getData(category?: string): Promise<HomePageData> {
-  const categories = await getCategories();
-  const meals = category
-    ? await getMealsByCategory(category)
-    : await getRandomMeals();
-
-  return {
-    categories: categories,
-    recipes: meals.map((meal) => ({ ...meal, category }))
-  };
-}
-
-interface HomeProps {
-  searchParams: { category?: string }
-}
 
 export default function Home({ searchParams }: HomeProps) {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getData(searchParams.category);
-      setRecipes(data.recipes);
-      setCategories(data.categories);
+      try {
+        setIsLoading(true);
+        const categories = await getCategories();
+        const meals = searchParams.category
+          ? await getMealsByCategory(searchParams.category)
+          : await getRandomMeals();
+
+        setCategories(categories);
+        setRecipes(meals.map((meal) => ({
+          ...meal,
+          category: searchParams.category || 'Beef'
+        })));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetchData();
   }, [searchParams.category]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="container px-4 py-6">
       <div className="flex gap-2 md:gap-4 overflow-x-auto pb-4 scrollbar-none -mx-4 px-4 md:mx-0 items-center">
         {categories.map((category) => (
-          <Link
+          <a
             key={category.idCategory}
             href={`/?category=${category.strCategory}`}
             className={`
@@ -59,7 +67,7 @@ export default function Home({ searchParams }: HomeProps) {
             `}
           >
             {category.strCategory}
-          </Link>
+          </a>
         ))}
       </div>
       <div className="grid grid-cols-1 gap-10 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">

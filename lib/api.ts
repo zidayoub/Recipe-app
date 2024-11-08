@@ -10,9 +10,7 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 export async function getMealsByCategory(category: string): Promise<Recipe[]> {
-  const response = await fetch(
-    `/api/recipes/by-category?category=${encodeURIComponent(category)}`
-  );
+  const response = await fetch(`/api/recipes/by-category?category=${category}`);
   if (!response.ok) {
     throw new Error('Failed to fetch meals');
   }
