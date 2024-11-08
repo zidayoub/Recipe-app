@@ -7,16 +7,9 @@ import { Category, Recipe } from "@/types";
 import { useEffect, useState } from "react";
 import Loading from "./loading";
 
-// interface HomePageData {
-//   categories: Category[];
-//   recipes: Recipe[];
-// }
-
 interface HomeProps {
   searchParams: { category?: string };
 }
-
-export const dynamic = 'force-dynamic';
 
 export default function Home({ searchParams }: HomeProps) {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
