@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
-  // Public routes
   if (
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/register') ||
@@ -14,7 +13,6 @@ export async function middleware(request: NextRequest) {
 
   const authCookie = cookies().get('auth');
 
-  // Redirect to login if no auth cookie
   if (!authCookie) {
     return NextResponse.redirect(new URL('/login', request.url));
   }

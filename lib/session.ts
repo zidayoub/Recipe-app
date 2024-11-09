@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 export async function getSession() {
   const cookieStore = cookies();
   const authCookie = cookieStore.get('auth');
-  return authCookie ? JSON.parse(authCookie.value) : null;
+  return JSON.parse(authCookie?.value || '{}');
 }
 
 export async function setSession(data: { username: string }) {

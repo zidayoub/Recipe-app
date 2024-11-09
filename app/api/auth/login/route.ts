@@ -28,7 +28,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Set server-side session
     await setSession({ username: user.username });
 
     return NextResponse.json({

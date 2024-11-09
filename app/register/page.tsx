@@ -39,10 +39,6 @@ export default function RegisterPage() {
                 return;
             }
 
-            // Set auth cookie
-            document.cookie = `auth=${username}; path=/;`
-
-            // Use router for navigation
             router.push('/')
             router.refresh()
         } catch {

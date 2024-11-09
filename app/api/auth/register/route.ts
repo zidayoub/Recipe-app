@@ -1,4 +1,5 @@
 import { connectDB } from '@/lib/mongodb';
+import { setSession } from '@/lib/session';
 import { User } from '@/models/User';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -26,6 +27,8 @@ export async function POST(request: NextRequest) {
     }
 
     const user = await User.create(validatedData);
+
+    await setSession({ username: user.username });
 
     return NextResponse.json({
       user: {

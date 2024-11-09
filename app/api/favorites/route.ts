@@ -15,6 +15,7 @@ export async function GET() {
   try {
     await connectDB();
     const session = await getSession();
+    console.log('session', session);
 
     if (!session) {
       return NextResponse.json(
