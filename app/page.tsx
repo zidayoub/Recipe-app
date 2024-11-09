@@ -68,7 +68,6 @@ export default function Home() {
         recipeId={selectedRecipe?.idMeal}
         isOpen={!!selectedRecipe}
         onClose={() => setSelectedRecipe(null)}
-        isLiked={selectedRecipe?.isLiked}
       />
     </div>
   )

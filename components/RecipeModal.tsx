@@ -1,7 +1,7 @@
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { getRecipeById } from "@/lib/api";
 import { RecipeDetails } from "@/types";
-import { Globe2, Heart, Link2, Loader2, Tags, UtensilsCrossed, Video } from "lucide-react";
+import { Globe2, Link2, Loader2, Tags, UtensilsCrossed, Video } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState, useTransition } from "react";
 
@@ -9,11 +9,9 @@ interface RecipeModalProps {
     recipeId?: string;
     isOpen: boolean;
     onClose: () => void;
-    isLiked?: boolean;
 }
 
-export function RecipeModal({ recipeId, isOpen, onClose, isLiked }: RecipeModalProps) {
-    const [liked, setLiked] = useState(isLiked);
+export function RecipeModal({ recipeId, isOpen, onClose }: RecipeModalProps) {
     const [recipe, setRecipe] = useState<RecipeDetails | null>(null);
     const [isPending, startTransition] = useTransition();
 
@@ -28,22 +26,6 @@ export function RecipeModal({ recipeId, isOpen, onClose, isLiked }: RecipeModalP
             await fetchRecipe();
         });
     }, [recipeId]);
-
-    const toggleFavorite = async (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (liked) {
-            await fetch(`/api/favorites?id=${recipe?.idMeal}`, {
-                method: 'DELETE',
-            });
-        } else {
-            await fetch('/api/favorites', {
-                method: 'POST',
-                body: JSON.stringify(recipe),
-            });
-        }
-
-        setLiked(!liked);
-    };
 
     if (!recipe) return null;
 
@@ -63,27 +45,13 @@ export function RecipeModal({ recipeId, isOpen, onClose, isLiked }: RecipeModalP
                                         height={100}
                                         className="object-cover w-full h-full"
                                     />
-                                    <div className="absolute bottom-0 right-0 flex justify-center p-2 bg-gradient-to-t from-black/50 to-transparent">
-                                        <button
-                                            onClick={toggleFavorite}
-                                            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
-                                            aria-label={liked ? "Unlike recipe" : "Like recipe"}
-                                        >
-                                            <Heart
-                                                className={`w-6 h-6 transition-colors ${liked
-                                                    ? "fill-red-500 stroke-red-500"
-                                                    : "stroke-gray-600"
-                                                    }`}
-                                            />
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
 
                             <div className="flex-1">
-                                <DialogTitle className="text-xl sm:text-2xl font-bold mb-3">
+                                <h1 className="text-xl sm:text-2xl font-bold mb-3">
                                     {recipe.strMeal}
-                                </DialogTitle>
+                                </h1>
 
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-2 text-sm text-gray-700">

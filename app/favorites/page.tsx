@@ -41,7 +41,6 @@ export default function Favorites() {
                 recipeId={selectedRecipe?.idMeal}
                 isOpen={!!selectedRecipe}
                 onClose={() => setSelectedRecipe(null)}
-                isLiked={selectedRecipe?.isLiked}
             />
         </div>
     );
