@@ -1,12 +1,13 @@
 'use client'
 
+import { revalidatePath } from "next/cache"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { redirect } from "next/navigation"
 import { useState } from "react"
 
 export default function LoginPage() {
     const [error, setError] = useState("")
-    const router = useRouter()
+    // const router = useRouter()
 
     async function handleSubmit(formData: FormData) {
         const username = formData.get("username") as string
@@ -33,8 +34,8 @@ export default function LoginPage() {
                 return;
             }
 
-            router.push('/')
-            router.refresh()
+            revalidatePath('/')
+            redirect('/')
 
 
         } catch {
