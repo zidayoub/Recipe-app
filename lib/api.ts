@@ -32,6 +32,7 @@ export async function getRecipeById(id: string): Promise<RecipeDetails> {
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
   );
   const data = await response.json();
+  console.log('recipe by id', data);
 
   if (!data.meals?.[0]) {
     throw new Error('Recipe not found');

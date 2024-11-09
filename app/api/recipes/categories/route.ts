@@ -25,7 +25,6 @@ export async function GET() {
     });
 
     const validatedData = categorySchema.parse(data);
-    console.log(validatedData.categories.slice(0, 5));
 
     return NextResponse.json({
       categories: validatedData.categories.slice(0, 5),
