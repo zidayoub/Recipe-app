@@ -1,7 +1,9 @@
+import { clearSession } from "@/lib/session"
 import { LogIn } from "lucide-react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -11,11 +13,17 @@ export const metadata: Metadata = {
   description: "Explore and save your favorite recipes",
 }
 
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const logOut = async () => {
+    "use server"
+    await clearSession();
+    redirect('/login');
+  }
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen bg-[#FFF5F7]`}>
@@ -38,13 +46,15 @@ export default function RootLayout({
                 FAVORITES
               </Link>
             </nav>
-            <Link
-              href="/login"
+            <form
+              action={logOut}
               className="ml-4"
             >
-              <LogIn className="h-6 w-6" />
-              <span className="sr-only">Login</span>
-            </Link>
+              <button type="submit">
+                <LogIn className="h-6 w-6" />
+                <span className="sr-only">Logout</span>
+              </button>
+            </form>
           </div>
         </header>
         <main className="lg:px-40">{children}</main>

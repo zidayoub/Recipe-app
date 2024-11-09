@@ -10,10 +10,22 @@ export default function Favorites() {
     const [favorites, setFavorites] = useState<Recipe[]>([]);
 
     useEffect(() => {
-        const storedFavorites = localStorage.getItem('favorites');
-        if (storedFavorites) {
-            setFavorites(JSON.parse(storedFavorites));
-        }
+        const fetchFavorites = async () => {
+            try {
+                const response = await fetch('/api/favorites');
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch favorites');
+                }
+
+                const data = await response.json();
+                setFavorites(data.favorites);
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
+            }
+        };
+
+        fetchFavorites();
     }, []);
 
     return (

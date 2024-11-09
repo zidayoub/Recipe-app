@@ -1,8 +1,7 @@
 import { Recipe } from "@/types";
 import { Heart } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 
 interface RecipeCardProps {
     recipe: Recipe;
@@ -12,26 +11,21 @@ interface RecipeCardProps {
 export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
     const [isLiked, setIsLiked] = useState(false);
 
-    useEffect(() => {
-        const storedFavorites = localStorage.getItem('favorites');
-        if (storedFavorites) {
-            const favorites = JSON.parse(storedFavorites);
-            setIsLiked(favorites.some((fav: Recipe) => fav.idMeal === recipe.idMeal));
-        }
-    }, [recipe.idMeal]);
-
-    const toggleFavorite = (e: React.MouseEvent) => {
+    const toggleFavorite = async (e: React.MouseEvent) => {
         e.stopPropagation();
-        const storedFavorites = localStorage.getItem('favorites');
-        let favorites: Recipe[] = storedFavorites ? JSON.parse(storedFavorites) : [];
-
         if (isLiked) {
-            favorites = favorites.filter((fav) => fav.idMeal !== recipe.idMeal);
+            await fetch(`/api/favorites?id=${recipe.idMeal}`, {
+                method: 'DELETE',
+            });
+            console.log('deleted')
         } else {
-            favorites.push(recipe);
+            await fetch('/api/favorites', {
+                method: 'POST',
+                body: JSON.stringify(recipe),
+            });
+            console.log('added')
         }
 
-        localStorage.setItem('favorites', JSON.stringify(favorites));
         setIsLiked(!isLiked);
     };
 

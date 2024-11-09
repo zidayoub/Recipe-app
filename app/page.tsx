@@ -40,11 +40,11 @@ export default function Home() {
             key={category.idCategory}
             href={`/?category=${category.strCategory}`}
             className={`
-              inline-flex shrink-0 items-center justify-center rounded-full border border-primary 
-              px-3 md:px-4 py-1.5 md:py-2 text-sm font-medium transition-colors hover:bg-primary hover:text-primary-foreground
-              ${searchParams.get('category') === category.strCategory ? 'bg-primary text-primary-foreground' : ''}
-              ${!searchParams.get('category') && category.strCategory === categories[0].strCategory ? 'bg-primary text-primary-foreground' : ''}
-            `}
+                inline-flex shrink-0 items-center justify-center rounded-full border border-primary 
+                px-3 md:px-4 py-1.5 md:py-2 text-sm font-medium transition-colors hover:bg-primary hover:text-primary-foreground
+                ${searchParams.get('category') === category.strCategory ? 'bg-primary text-primary-foreground' : ''}
+                ${!searchParams.get('category') && category.strCategory === categories[0].strCategory ? 'bg-primary text-primary-foreground' : ''}
+              `}
           >
             {category.strCategory}
           </Link>

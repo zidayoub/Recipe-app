@@ -1,22 +1,58 @@
 'use client'
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function RegisterPage() {
     const [error, setError] = useState("")
+    const router = useRouter()
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
+        const username = formData.get("username")
         const password = formData.get("password")
         const confirmPassword = formData.get("confirmPassword")
 
         if (password !== confirmPassword) {
-            setError("The password does not match")
+            setError("The passwords do not match")
             return
         }
 
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setError(data.error || 'Registration failed');
+                return;
+            }
+
+            // Store credentials in localStorage
+            localStorage.setItem('username', username as string);
+            localStorage.setItem('password', password as string);
+            localStorage.setItem('userData', JSON.stringify(data.user));
+
+            // Set auth cookie
+            document.cookie = `auth=${username}; path=/;`
+
+            // Use router for navigation
+            router.push('/')
+            router.refresh()
+        } catch {
+            setError('An error occurred during registration');
+        }
     }
 
     return (
@@ -27,56 +63,16 @@ export default function RegisterPage() {
                 </div>
                 <h1 className="mb-6 text-2xl font-semibold">Register</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label htmlFor="firstName" className="text-sm text-gray-600">
-                                First name *
-                            </label>
-                            <input
-                                id="firstName"
-                                name="firstName"
-                                type="text"
-                                required
-                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 hover:border-gray-400 focus:border-[#FF4E7C] focus:outline-none focus:ring-1 focus:ring-[#FF4E7C]"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="lastName" className="text-sm text-gray-600">
-                                Last name *
-                            </label>
-                            <input
-                                id="lastName"
-                                name="lastName"
-                                type="text"
-                                required
-                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 hover:border-gray-400 focus:border-[#FF4E7C] focus:outline-none focus:ring-1 focus:ring-[#FF4E7C]"
-                            />
-                        </div>
-                    </div>
                     <div>
-                        <label htmlFor="email" className="text-sm text-gray-600">
-                            Email *
+                        <label htmlFor="username" className="text-sm text-gray-600">
+                            Username *
                         </label>
                         <input
-                            id="email"
-                            name="email"
-                            type="email"
+                            id="username"
+                            name="username"
+                            type="text"
                             required
                             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 hover:border-gray-400 focus:border-[#FF4E7C] focus:outline-none focus:ring-1 focus:ring-[#FF4E7C]"
-                            placeholder="abc@gmail.com"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="phone" className="text-sm text-gray-600">
-                            Phone number *
-                        </label>
-                        <input
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            required
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 hover:border-gray-400 focus:border-[#FF4E7C] focus:outline-none focus:ring-1 focus:ring-[#FF4E7C]"
-                            placeholder="011 2222 333"
                         />
                     </div>
                     <div>

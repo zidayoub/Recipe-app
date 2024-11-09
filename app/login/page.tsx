@@ -1,19 +1,45 @@
 'use client'
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function LoginPage() {
     const [error, setError] = useState("")
+    const router = useRouter()
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
-        const password = formData.get("password")
+    async function handleSubmit(formData: FormData) {
+        const username = formData.get("username") as string
+        const password = formData.get("password") as string
 
-        if (!password) {
-            setError("Please enter a password")
+        if (!username || !password) {
+            console.log('login error')
+            setError("Please fill in all fields")
             return
+        }
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            console.log(data)
+
+            if (!response.ok) {
+                setError(data.error || 'Login failed');
+                return;
+            }
+
+            router.push('/')
+
+        } catch (error) {
+            console.log('login error', error)
+            setError('An error occurred during login');
         }
     }
 
@@ -24,18 +50,18 @@ export default function LoginPage() {
                     <span className="text-2xl font-bold text-[#FF4E7C]">CookBook.</span>
                 </div>
                 <h1 className="mb-6 text-2xl font-semibold">Login</h1>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form action={handleSubmit} className="space-y-4">
                     <div>
-                        <label htmlFor="email" className="text-sm text-gray-600">
-                            Email address
+                        <label htmlFor="username" className="text-sm text-gray-600">
+                            Username
                         </label>
                         <input
-                            id="email"
-                            name="email"
-                            type="email"
+                            id="username"
+                            name="username"
+                            type="text"
                             required
                             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 hover:border-gray-400 focus:border-[#FF4E7C] focus:outline-none focus:ring-1 focus:ring-[#FF4E7C]"
-                            placeholder="john@gmail.com"
+                            placeholder="johndoe"
                         />
                     </div>
                     <div>
