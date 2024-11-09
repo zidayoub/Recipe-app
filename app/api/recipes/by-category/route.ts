@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 const API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 
 const querySchema = z.object({
