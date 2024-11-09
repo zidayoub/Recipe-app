@@ -34,6 +34,8 @@ export default function LoginPage() {
             }
 
             router.push('/')
+            router.refresh()
+
 
         } catch {
             setError('An error occurred during login');
