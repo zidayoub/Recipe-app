@@ -1,36 +1,146 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CookBook - Recipe Explorer
+
+A modern web application for exploring and saving your favorite recipes, built with Next.js 14, TypeScript, and MongoDB.
+
+## Features
+
+- 🔍 Browse recipes by categories
+- ❤️ Save favorite recipes
+- 👤 User authentication
+- 📱 Responsive design
+- 🎨 Modern UI with Tailwind CSS
+- 🔒 Secure session management
+
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Database:** MongoDB with Mongoose
+- **Styling:** Tailwind CSS
+- **UI Components:** Radix UI
+- **Authentication:** Custom session-based auth
+- **Form Validation:** Zod
+- **API Integration:** TheMealDB API
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+
+- MongoDB database
+- npm or yarn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/adhhamdev/recipe-app.git
+   cd cookbook
+   ```
 
-## Learn More
+2. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Create a `.env.local` file in the root directory:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```
+   MONGODB_URI=your_mongodb_connection_string
+   ```
 
-## Deploy on Vercel
+4. Start the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser.
+
+## API Routes
+
+### Authentication
+
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+
+### Recipes
+
+- `GET /api/recipes/categories` - Get recipe categories
+- `GET /api/recipes/by-category` - Get recipes by category
+- `GET /api/recipes/random` - Get random recipes
+
+### Favorites
+
+- `GET /api/favorites` - Get user's favorite recipes
+- `POST /api/favorites` - Add recipe to favorites
+- `DELETE /api/favorites` - Remove recipe from favorites
+
+## Environment Variables
+
+MONGODB_URI= # MongoDB connection string
+
+## Development
+
+### Development Commands
+
+- **Run development server**
+
+  ```bash
+  npm run dev
+  ```
+
+- **Build for production**
+
+  ```bash
+  npm run build
+  ```
+
+- **Start production server**
+  ```bash
+  npm start
+  ```
+
+## Features in Detail
+
+### Authentication
+
+- Secure user registration and login
+- Session-based authentication with HTTP-only cookies
+- Protected routes and API endpoints
+- Automatic redirect to login for unauthenticated users
+
+### Recipe Management
+
+- Browse recipes by different cuisine categories
+- View detailed recipe information including:
+  - Ingredients and measurements
+  - Step-by-step cooking instructions
+  - Recipe images
+- Save and manage favorite recipes
+- Responsive recipe cards and modal views
+
+### User Interface
+
+- Clean and modern design with Tailwind CSS
+- Responsive layout for all screen sizes
+- Loading states and error handling
+- Modal-based recipe detail view
+- Smooth animations and transitions
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [TheMealDB](https://www.themealdb.com/) for providing the recipe API
+- [Next.js](https://nextjs.org/) for the amazing framework
+- [Tailwind CSS](https://tailwindcss.com/) for the styling system
+- [MongoDB](https://www.mongodb.com/) for the database
