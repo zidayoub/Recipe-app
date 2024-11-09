@@ -58,3 +58,19 @@ export async function getRecipeById(id: string): Promise<RecipeDetails> {
     ingredients: ingredients,
   };
 }
+
+export async function getFavorites(): Promise<Recipe[]> {
+  try {
+    const response = await fetch('/api/favorites');
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch favorites');
+    }
+
+    const data = await response.json();
+    return data.favorites;
+  } catch (error) {
+    console.error('Error fetching favorites:', error);
+    return [];
+  }
+}

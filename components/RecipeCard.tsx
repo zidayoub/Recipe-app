@@ -6,14 +6,14 @@ import { useState } from "react";
 interface RecipeCardProps {
     recipe: Recipe;
     onViewRecipe: (id: string) => void;
+    isLiked: boolean;
 }
 
-export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
-    const [isLiked, setIsLiked] = useState(false);
-
+export function RecipeCard({ recipe, onViewRecipe, isLiked }: RecipeCardProps) {
+    const [liked, setLiked] = useState(isLiked);
     const toggleFavorite = async (e: React.MouseEvent) => {
         e.stopPropagation();
-        if (isLiked) {
+        if (liked) {
             await fetch(`/api/favorites?id=${recipe.idMeal}`, {
                 method: 'DELETE',
             });
@@ -26,7 +26,7 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
             console.log('added')
         }
 
-        setIsLiked(!isLiked);
+        setLiked(!liked);
     };
 
     return (
@@ -51,10 +51,10 @@ export function RecipeCard({ recipe, onViewRecipe }: RecipeCardProps) {
                     <button
                         className="ml-2 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
                         onClick={toggleFavorite}
-                        aria-label={isLiked ? "Unlike recipe" : "Like recipe"}
+                        aria-label={liked ? "Unlike recipe" : "Like recipe"}
                     >
                         <Heart
-                            className={`w-5 h-5 transition-colors ${isLiked
+                            className={`w-5 h-5 transition-colors ${liked
                                 ? "fill-red-500 stroke-red-500"
                                 : "stroke-gray-600"
                                 }`}

@@ -9,6 +9,7 @@ export interface Recipe {
   strMeal: string;
   strMealThumb: string;
   category?: string;
+  isLiked: boolean;
 }
 
 export interface RecipeDetails {

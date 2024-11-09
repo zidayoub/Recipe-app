@@ -39,11 +39,6 @@ export default function RegisterPage() {
                 return;
             }
 
-            // Store credentials in localStorage
-            localStorage.setItem('username', username as string);
-            localStorage.setItem('password', password as string);
-            localStorage.setItem('userData', JSON.stringify(data.user));
-
             // Set auth cookie
             document.cookie = `auth=${username}; path=/;`
 

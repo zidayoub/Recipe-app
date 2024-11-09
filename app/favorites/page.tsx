@@ -2,6 +2,7 @@
 
 import { RecipeCard } from "@/components/RecipeCard";
 import { RecipeModal } from "@/components/RecipeModal";
+import { getFavorites } from "@/lib/api";
 import { Recipe } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -10,22 +11,7 @@ export default function Favorites() {
     const [favorites, setFavorites] = useState<Recipe[]>([]);
 
     useEffect(() => {
-        const fetchFavorites = async () => {
-            try {
-                const response = await fetch('/api/favorites');
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch favorites');
-                }
-
-                const data = await response.json();
-                setFavorites(data.favorites);
-            } catch (error) {
-                console.error('Error fetching favorites:', error);
-            }
-        };
-
-        fetchFavorites();
+        getFavorites().then(res => setFavorites(res));
     }, []);
 
     return (
@@ -42,6 +28,7 @@ export default function Favorites() {
                         <RecipeCard
                             key={recipe.idMeal}
                             recipe={recipe}
+                            isLiked={true}
                             onViewRecipe={() => {
                                 setSelectedRecipe(recipe);
                             }}
@@ -54,6 +41,7 @@ export default function Favorites() {
                 recipeId={selectedRecipe?.idMeal}
                 isOpen={!!selectedRecipe}
                 onClose={() => setSelectedRecipe(null)}
+                isLiked={selectedRecipe?.isLiked}
             />
         </div>
     );

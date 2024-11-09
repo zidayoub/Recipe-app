@@ -2,7 +2,7 @@
 
 import { RecipeCard } from "@/components/RecipeCard";
 import { RecipeModal } from "@/components/RecipeModal";
-import { getCategories, getMealsByCategory, getRandomMeals } from "@/lib/api";
+import { getCategories, getFavorites, getMealsByCategory, getRandomMeals } from "@/lib/api";
 import { Category, Recipe } from "@/types";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -20,11 +20,13 @@ export default function Home() {
       const meals = searchParams.get('category')
         ? await getMealsByCategory(searchParams.get('category')!)
         : await getRandomMeals();
+      const favorites = await getFavorites();
 
       setCategories(categories);
       setRecipes(meals.map((meal) => ({
         ...meal,
         category: searchParams.get('category') || 'Beef',
+        isLiked: favorites.some((fav) => fav.idMeal === meal.idMeal),
       }))
       );
     };
@@ -58,6 +60,7 @@ export default function Home() {
             onViewRecipe={() => {
               setSelectedRecipe(recipe);
             }}
+            isLiked={recipe.isLiked}
           />
         ))}
       </div>
@@ -65,6 +68,7 @@ export default function Home() {
         recipeId={selectedRecipe?.idMeal}
         isOpen={!!selectedRecipe}
         onClose={() => setSelectedRecipe(null)}
+        isLiked={selectedRecipe?.isLiked}
       />
     </div>
   )
