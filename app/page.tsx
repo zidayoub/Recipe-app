@@ -32,7 +32,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, [searchParams]);
+  }, [searchParams, selectedRecipe]);
 
   return (
     <div className="container px-4 py-6">

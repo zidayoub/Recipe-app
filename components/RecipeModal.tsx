@@ -35,13 +35,11 @@ export function RecipeModal({ recipeId, isOpen, onClose, isLiked }: RecipeModalP
             await fetch(`/api/favorites?id=${recipe?.idMeal}`, {
                 method: 'DELETE',
             });
-            console.log('deleted')
         } else {
             await fetch('/api/favorites', {
                 method: 'POST',
                 body: JSON.stringify(recipe),
             });
-            console.log('added')
         }
 
         setLiked(!liked);
@@ -55,7 +53,6 @@ export function RecipeModal({ recipeId, isOpen, onClose, isLiked }: RecipeModalP
                 {isPending && <div className="flex justify-center items-center h-full"><Loader2 className="w-10 h-10 animate-spin" /></div>}
                 {!isPending && (
                     <div className="flex flex-col gap-6">
-                        {/* Image and Basic Info Section */}
                         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                             <div className="w-full sm:w-[40%]">
                                 <div className="relative aspect-video sm:aspect-square rounded-lg overflow-hidden">

@@ -17,13 +17,11 @@ export function RecipeCard({ recipe, onViewRecipe, isLiked }: RecipeCardProps) {
             await fetch(`/api/favorites?id=${recipe.idMeal}`, {
                 method: 'DELETE',
             });
-            console.log('deleted')
         } else {
             await fetch('/api/favorites', {
                 method: 'POST',
                 body: JSON.stringify(recipe),
             });
-            console.log('added')
         }
 
         setLiked(!liked);

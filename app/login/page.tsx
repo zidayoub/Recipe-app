@@ -13,7 +13,6 @@ export default function LoginPage() {
         const password = formData.get("password") as string
 
         if (!username || !password) {
-            console.log('login error')
             setError("Please fill in all fields")
             return
         }
@@ -28,7 +27,6 @@ export default function LoginPage() {
             });
 
             const data = await response.json();
-            console.log(data)
 
             if (!response.ok) {
                 setError(data.error || 'Login failed');
@@ -37,8 +35,7 @@ export default function LoginPage() {
 
             router.push('/')
 
-        } catch (error) {
-            console.log('login error', error)
+        } catch {
             setError('An error occurred during login');
         }
     }

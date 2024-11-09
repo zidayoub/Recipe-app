@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   description: "Explore and save your favorite recipes",
 }
 
-
 export default function RootLayout({
   children,
 }: {
