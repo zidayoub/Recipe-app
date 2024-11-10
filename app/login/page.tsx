@@ -39,7 +39,7 @@ export default function LoginPage() {
                 router.refresh();
                 setTimeout(() => {
                     router.replace('/');
-                }, 100);
+                }, 1000);
             }
 
         } catch {
