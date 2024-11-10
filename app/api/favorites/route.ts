@@ -108,6 +108,15 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
+    if (
+      !user.favorites.some((fav: { idMeal: string }) => fav.idMeal === recipeId)
+    ) {
+      return NextResponse.json(
+        { error: 'Recipe not found in favorites' },
+        { status: 404 }
+      );
+    }
+
     user.favorites = user.favorites.filter(
       (fav: { idMeal: string }) => fav.idMeal !== recipeId
     );
