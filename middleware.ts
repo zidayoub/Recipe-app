@@ -1,6 +1,5 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { getSession } from './lib/session';
 
 export async function middleware(request: NextRequest) {
   if (
@@ -11,7 +10,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const authCookie = await getSession();
+  const authCookie = request.cookies.get('auth');
 
   if (!authCookie) {
     return NextResponse.redirect(new URL('/login', request.url));

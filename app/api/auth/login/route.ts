@@ -30,10 +30,7 @@ export async function POST(request: NextRequest) {
 
     await setSession({ username: user.username });
 
-    return NextResponse.json({
-      user,
-      status: 200,
-    });
+    return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(

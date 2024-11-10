@@ -35,7 +35,12 @@ export default function LoginPage() {
                 return;
             }
 
-            router.push('/')
+            if (data.success) {
+                router.refresh();
+                setTimeout(() => {
+                    router.replace('/');
+                }, 100);
+            }
 
         } catch {
             setError('An error occurred during login');
