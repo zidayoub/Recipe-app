@@ -12,6 +12,10 @@ export async function middleware(request: NextRequest) {
 
   const authCookie = request.cookies.get('auth');
 
+  if (request.nextUrl.pathname.startsWith('/api/') && !authCookie) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   if (!authCookie) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
