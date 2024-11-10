@@ -1,14 +1,16 @@
 'use client'
 
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from 'react';
 
 export default function LoginPage() {
     const [error, setError] = useState("")
     const router = useRouter()
 
-    async function handleSubmit(formData: FormData) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
         const username = formData.get("username") as string
         const password = formData.get("password") as string
 
@@ -47,7 +49,7 @@ export default function LoginPage() {
                     <span className="text-2xl font-bold text-[#FF4E7C]">CookBook.</span>
                 </div>
                 <h1 className="mb-6 text-2xl font-semibold">Login</h1>
-                <form action={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="username" className="text-sm text-gray-600">
                             Username

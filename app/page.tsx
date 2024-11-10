@@ -31,6 +31,7 @@ export default function Home() {
       );
     };
 
+
     fetchData();
   }, [searchParams, selectedRecipe]);
 

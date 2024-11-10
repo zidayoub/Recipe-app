@@ -2,15 +2,15 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 
 export default function RegisterPage() {
     const [error, setError] = useState("")
     const router = useRouter()
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
         const username = formData.get("username")
         const password = formData.get("password")
         const confirmPassword = formData.get("confirmPassword")
@@ -40,7 +40,6 @@ export default function RegisterPage() {
             }
 
             router.push('/')
-            router.refresh()
         } catch {
             setError('An error occurred during registration');
         }

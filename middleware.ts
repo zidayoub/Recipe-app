@@ -1,6 +1,6 @@
-import { cookies } from 'next/headers';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import { getSession } from './lib/session';
 
 export async function middleware(request: NextRequest) {
   if (
@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const authCookie = cookies().get('auth');
+  const authCookie = await getSession();
 
   if (!authCookie) {
     return NextResponse.redirect(new URL('/login', request.url));

@@ -1,9 +1,7 @@
-import { clearSession } from "@/lib/session"
 import { LogIn } from "lucide-react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Link from "next/link"
-import { redirect } from "next/navigation"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -18,11 +16,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const logOut = async () => {
-    "use server"
-    await clearSession();
-    redirect('/login');
-  }
+
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen bg-[#FFF5F7]`}>
@@ -46,7 +40,7 @@ export default function RootLayout({
               </Link>
             </nav>
             <form
-              action={logOut}
+              action="/api/auth/log-out"
               className="ml-4"
             >
               <button type="submit">
