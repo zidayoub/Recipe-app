@@ -39,7 +39,12 @@ export default function RegisterPage() {
                 return;
             }
 
-            router.push('/')
+            if (data.success) {
+                router.refresh();
+                setTimeout(() => {
+                    router.replace('/');
+                }, 1000);
+            }
         } catch {
             setError('An error occurred during registration');
         }

@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
       user: {
         username: user.username,
       },
+      success: true,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
